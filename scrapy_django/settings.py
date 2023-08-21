@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BookList.apps.BooklistConfig',
+    'web'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'web.middleware.auth.AuthMiddleware'
 ]
 
 ROOT_URLCONF = 'scrapy_django.urls'
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'scrapy_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'BookList/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -124,7 +126,26 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SMS=0
+# # 腾讯云短信应用的 app_id
+# TENCENT_SMS_APP_ID = 6666666666
+#
+# # 腾讯云短信应用的 app_key
+# TENCENT_SMS_APP_KEY = "6666666666666666666666"
+#
+# # 腾讯云短信签名内容
+# TENCENT_SMS_SIGN = "Python之路"
+
+
+WHITE_REGEX_URL_LIST=[
+    "/register/",
+    "/send/email/",
+    "/login/",
+    "/login/email/",
+    "/image/code/",
+    "/index/",
+    '/logout/'
+]
+
 try :
     from .local_settings import *
 except ImportError:

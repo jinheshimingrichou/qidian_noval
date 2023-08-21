@@ -1,0 +1,155 @@
+{% extends 'layout/basic.html' %}
+{% block title %}邮件登录{% endblock %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <style>
+        .error-msg {
+            color: red;
+            position: absolute;
+            font-size: 13px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="account">
+        <div class="title">邮箱登录</div>
+        <form id="emailForm" method="POST" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'code' %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div class="row">
+                            <div class="col-xs-7">
+                                {{ field }}
+                                <span class="error-msg"></span>
+                            </div>
+                            <div class="col-xs-5">
+                                <input id="btnEmail" type="button" class="btn btn-default" value="点击获取验证码">
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+                        {#                        <input type="password" class="form-control" placeholder="请输入新密码" autocomplete="off">#}
+                        {{ field }}
+                        <span class="error-msg"></span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div>
+                <div style="float: right;">
+                    <a href="{% url 'login' %}">用户名密码登录?</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <input id="btnSubmit" type="button" class="btn btn-primary" value="登  录"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+    <script>
+        $(function () {
+            bindClickBtnEmail();
+            bindClickSubmit();
+
+        })
+
+        //展现显现错误提示信息
+        function bindClickBtnEmail() {
+            $('#btnEmail').click(function () {
+
+                $('.error-msg').empty();
+
+                // 获取用户输入的手机号
+                // 找到输入框的ID，根据ID获取值，如何找到手机号的那个ID？
+                var email = $('#id_email').val();
+
+                // 发送ajax请求，把手机号发送过去
+                $.ajax({
+                    url: "{% url 'send_email' %}", // 等价于 /send/sms/
+                    type: "GET",
+                    data: {email: email, tpl: "login"},
+                    dataType: "JSON", // 将服务端返回的数据反序列化为字典
+                    success: function (res) {
+                        // ajax请求发送成功之后，自动执行的函数； res就是后端返回的值
+                        if (res.status) {
+                            sendEmailRemind();
+                            console.log(res)
+                        } else {
+                            // 错误信息
+                            // console.log(res); // {status:False, error:{ mobile_phone: ["错误信息"，],code: ["错误信息"，] }  }
+                            $.each(res.error, function (key, value) {
+                                $("#id_" + key).next().text(value[0]);
+                            })
+                        }
+                    }
+                })
+
+            })
+        }
+
+
+        function bindClickSubmit() {
+            $('#btnSubmit').click(function () {
+                $('.error-msg').empty()
+                $.ajax({
+                    url: "{% url 'login_email' %}",
+                    type: 'POST',
+                    data: $('#emailForm').serialize(),
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status) {
+                            location.href = res.data
+                        } else {
+                            console.log(res)
+                            console.log(res.data)
+                            $.each(res.error, function (key, value) {
+                                console.log(key, value)
+                                $("#id_" + key).next().text(value[0]);
+                            })
+
+                        }
+                    }
+
+                })
+            })
+        }
+
+        function sendEmailRemind() {
+            var $emailBtn = $('#btnEmail');
+            $emailBtn.prop('disabled', true); // 禁用
+            var time = 60;
+            var remind = setInterval(function () {
+                $emailBtn.val(time + '秒重新发送');
+                time = time - 1;
+                if (time < 1) {
+                    clearInterval(remind);
+                    $emailBtn.val('点击获取验证码').prop('disabled', false);
+                }
+            }, 1000)
+
+        }
+
+    </script>
+
+
+{% endblock %}
