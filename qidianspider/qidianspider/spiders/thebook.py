@@ -13,20 +13,20 @@ class ThebookSpider(scrapy.Spider):
         for li in li_list:
             name=li.xpath("./div[2]/h2/a/@href").extract_first()
             href= li.xpath("./div[2]/p/a[1]/@href").extract_first()
-            # yield scrapy.Request(
-            #     url='https:{}'.format(href),
-            #     method='get',
-            #     callback=self.parse_author
-            #     , dont_filter=True
-            # )
+            yield scrapy.Request(
+                url='https:{}'.format(href),
+                method='get',
+                callback=self.parse_author
+                , dont_filter=True
+            )
 
-            # yield scrapy.Request(
-            #     url='https:{}'.format(name),
-            #     method='get',
-            #     callback=self.parse_book
-            #     , dont_filter=True
-            # )
-            break
+            yield scrapy.Request(
+                url='https:{}'.format(name),
+                method='get',
+                callback=self.parse_book
+                , dont_filter=True
+            )
+            # break
 
     def parse_book(self,response,**kwargs):
         book_icon='https:'+response.xpath('//*[@id="bookImg"]/img/@src').get()
