@@ -1,0 +1,433 @@
+    .author-information {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 240px;
+            padding: 0;
+            position: relative;
+            width: 275px
+        }
+
+        .author-intro {
+            margin-top: 9px
+        }
+
+        .book-information-normal {
+            width: 756px
+        }
+
+        .book-info {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-left: 20px;
+            width: 556px
+        }
+
+        .book-info h1 {
+            color: #191919;
+            font-size: 32px;
+            font-weight: 600;
+            height: 42px;
+            line-height: 42px;
+            margin: 0;
+            overflow: hidden
+        }
+
+        .book-info .dot {
+            color: grey;
+            margin: 0 3px
+        }
+
+        .book-info .author-name {
+            color: #191919;
+            display: flex;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 22px;
+            margin: 8px 0
+        }
+
+        .book-info .author-name .writer {
+            color: #191919
+        }
+
+        .book-info .book-update-time, .book-info .intro, .book-info .latest-chapter {
+            color: grey;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .book-info .intro {
+            margin: 8px 0
+        }
+
+        .book-info .latest-chapter {
+            display: inline-block;
+            margin-right: 12px;
+            max-width: 340px
+        }
+
+        .book-info .book-update-time {
+            display: inline-block
+        }
+
+        .book-information-normal {
+            display: flex;
+            height: 240px
+        }
+
+
+        .book-detail-img img {
+            box-sizing: border-box;
+            height: 240px;
+            outline: 1px solid rgba(0, 0, 0, .08);
+            transition: transform .3s ease-out;
+            -webkit-transition: -webkit-transform .3s ease-out;
+            -moz-transition: -moz-transform .3s ease-out;
+            -ms-transition: -ms-transform .3s ease-out;
+            width: 180px;
+            will-change: transform
+        }
+
+
+        .left-line {
+            background: url(https://imgservices-1252317822.image.myqcloud.com/coco/s06122023/39d99404.twibqk.svg);
+            background-size: contain;
+            display: block;
+            height: 240px;
+            margin-left: 20px;
+            width: 1px
+        }
+
+        .author-information {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 240px;
+            padding: 0;
+            position: relative;
+            width: 275px
+        }
+
+        .author-img {
+            display: block;
+            position: relative;
+            text-align: center
+        }
+
+        .author-img img {
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 100%;
+            box-shadow: 0 0 0 2px #fff;
+            filter: drop-shadow(0 3px 16px rgba(0, 0, 0, .12));
+            height: 100px;
+            transition: all .2s ease;
+            width: 100px
+        }
+
+        .author-img img:hover {
+            border-radius: 10px;
+            transition-delay: 0ms
+        }
+
+        .author-img p {
+            align-items: center;
+            background-color: #4c70ff;
+            border: 4px;
+            border-radius: 4px;
+            display: flex;
+            height: 16px;
+            left: 120px;
+            overflow: hidden;
+            position: absolute;
+            top: 90px;
+            width: 42px
+        }
+
+        .author-img p:before {
+            background: url(https://imgservices-1252317822.image.myqcloud.com/coco/s05192023/4986e7ab.6bdqns.png) no-repeat;
+            background-size: contain;
+            content: "";
+            height: 15px;
+            left: 0;
+            position: absolute;
+            top: 1px;
+            width: 20px
+        }
+
+        .author-img p span {
+            color: #fff;
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 8px;
+            transform: scale(.5);
+            -webkit-transform: scale(.5);
+            white-space: nowrap;
+            will-change: transform
+        }
+
+        .author-intro {
+            margin-top: 9px
+        }
+
+        .author-intro h2 {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4px
+        }
+
+        .author-intro h2 .writer-name {
+            color: #191919;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 26px
+        }
+
+        .author-intro h2 .writer-name:hover {
+            color: #e5353e
+        }
+
+        .author-intro h2 {
+            display: inline-block;
+            height: 20px;
+            margin-left: 4px;
+            vertical-align: -1px;
+            width: 20px
+        }
+
+        .author-intro h2 {
+            display: none
+        }
+
+        .author-intro h2 {
+
+            background-position: -129px -64px;
+            background-repeat: no-repeat;
+            background-size: 335px;
+            height: 16px;
+            width: 18px
+        }
+
+        .author-intro h2 {
+            background-position: -299px -188px
+        }
+
+        .author-intro h2, .author-intro h2 {
+
+            background-repeat: no-repeat;
+            background-size: 335px;
+            height: 16px;
+            width: 19px
+        }
+
+        .author-intro h2 {
+            background-position: -299px -206px
+        }
+
+        .author-intro h2 {
+            background-position: -299px -224px;
+            background-repeat: no-repeat;
+            background-size: 335px;
+            height: 16px;
+            width: 19px
+        }
+
+        .outer-intro {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            position: relative;
+            width: 236px
+        }
+
+        .outer-intro:before {
+            background-image: url(https://imgservices-1252317822.image.myqcloud.com/coco/s06062023/60a468dc.uy2w26.svg);
+            left: 0
+        }
+
+        .outer-intro:after, .outer-intro:before {
+            background-size: contain;
+            content: "";
+            height: 40px;
+            opacity: .4;
+            top: 0;
+            width: 12px
+        }
+
+        .outer-intro:after {
+            background-image: url(https://imgservices-1252317822.image.myqcloud.com/coco/s06062023/ffd5fbf5.4abxzm.svg);
+            right: 0
+        }
+
+        .outer-intro p {
+            word-wrap: break-word;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            color: grey;
+            display: -webkit-box;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            margin: 0 8px;
+            overflow: hidden;
+            text-align: center;
+            width: 200px
+        }
+
+        .work-state {
+            display: flex;
+            margin: 12px auto 0
+        }
+
+        .book, .days, .write {
+            height: 36px;
+            position: relative;
+            text-align: center
+        }
+
+        .book p, .days p, .write p {
+            color: grey;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 17px
+        }
+
+        .book em, .days em, .write em {
+            color: #11074b;
+            font-family: Yuewen Font;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 24px
+        }
+
+        .work-number {
+            align-items: center;
+            display: flex;
+            justify-content: center
+        }
+
+        .work-number .icon-left {
+            background: url(https://imgservices-1252317822.image.myqcloud.com/coco/s06062023/67a2f484.3scgdz.svg) no-repeat;
+            background-size: contain;
+            height: 20px;
+            padding-right: 1px;
+            width: 6px
+        }
+
+        .work-number .icon-right {
+            background: url(https://imgservices-1252317822.image.myqcloud.com/coco/s06062023/04938c8e.8zl668.svg) no-repeat;
+            background-size: contain;
+            height: 20px;
+            padding-left: 1px;
+            width: 6px
+        }
+
+        .line {
+            background-color: rgba(0, 0, 0, .08);
+            display: block;
+            height: 36px;
+            margin-left: 12px;
+            margin-right: 12px;
+            transform-origin: 50% 100%;
+            width: 1px
+        }
+
+        .book-author {
+            margin-left: 190px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(107, 100, 147, .16);
+            box-sizing: border-box;
+            display: flex;
+            height: 304px;
+            outline: 1px solid transparent;
+            padding: 32px 0 32px 32px;
+            position: relative;
+            width: 1084px
+        }
+
+        .book-author:before {
+            background: linear-gradient(180deg, hsla(0, 0%, 100%, .36), hsla(0, 0%, 100%, 0));
+            border-radius: inherit;
+            bottom: 0;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1
+        }
+
+        p {
+            margin: 0
+        }
+
+
+        .intro-honor-label {
+            margin-top: 45px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, .03);
+            box-sizing: border-box;
+            padding: 28px 32px
+        }
+
+        .intro-honor {
+            display: flex;
+            justify-content: space-between
+        }
+
+        .intro-detail {
+            margin-left: 160px;
+            flex: 1
+        }
+
+        .intro-detail .title h2 {
+            color: #191919;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 32px;
+            position: relative;
+            white-space: nowrap
+        }
+
+        .count {
+            margin: 8px 0
+        }
+
+        .count em {
+            color: #191919;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 26px
+        }
+
+        .count cite {
+            color: grey;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            margin-left: 3px;
+            margin-right: 16px
+        }
+
+        .hhhhh {
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .author-intro div .author-name {
+            color: #191919;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 26px;
+
+        }

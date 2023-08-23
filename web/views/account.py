@@ -1,10 +1,6 @@
 import requests
 from django.shortcuts import render,HttpResponse, redirect
 from django.http import JsonResponse
-import random
-# Create your views here.
-from django import forms
-from BookList.models import *
 from web.forms.account import *
 from utils.image_code import check_code
 from django.db.models import Q

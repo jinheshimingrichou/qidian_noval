@@ -1,0 +1,98 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/author_detail.css' %}">
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+    <div class="author-header">
+        <div class="author-header-wrapper">
+            <div class="header-avatar">
+                <img class="header-avatar-img" src="/static/img/{{ author.icon }}"
+                     alt="{{ author.name }}的头像">
+                <span class="header-avatar-vip author-darkblue">{{ author.introduction|level }}</span>
+            </div>
+            <div class="header-msg">
+
+                <!-- 个人主页链接 -->
+                <a href="" class="header-msg-tosingle" target="_blank">个人主页</a>
+
+                <h1>{{ author.name }}</h1>
+                <div class="header-msg-desc">{{ author.introduction }}</div>
+                <div class="header-msg-data">
+                    <span class="mr12">作品总数<strong class="header-msg-strong">{{ author.book_total }}</strong></span><span
+                        class="ml12 mr12">累计字数<strong
+                        class="header-msg-strong">{{ author.all_word }}</strong>万</span><span
+                        class="ml12 mr12">创作天数<strong
+                        class="header-msg-strong">{{ author.start_work }}</strong>天</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="author-content-wrapper" >
+
+
+        <div class="author-content">
+
+
+            <!-- 全部作品 -->
+            <h2 class="author-title">全部作品({{ author.book_total }})</h2>
+            <ul class="author-work" >
+
+                <li class="author-work-line"></li>
+                {% for book in books %}
+                    <li class="author-item">
+                        <div class="author-item-time">2023~???</div>
+                        <a href="{% url 'book_detail' book.id %}}" target="_blank" class="author-item-book">
+                            <img src="/static/img/{{ book.book_icon }}" class="author-item-img"
+                                 alt="不死不灭在线阅读">
+                        </a>
+                        <div class="author-item-msg">
+                            <div class="author-item-title">
+                                <h2>
+                                    <a href="{% url 'book_detail' book.id %}" title="{{ book.name }}在线阅读">
+                                        {{ book.name}}
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="author-item-coll">暂无相关荣誉，敬请期待</div>
+                            <div class="author-item-exp"><a href="" target="_blank">{{ book.type }}</a><i
+                                    class="author-item-line"></i><a href=""
+                                                                    target="_blank">{{ book.state|state }}</a><i
+                                    class="author-item-line"></i>{{ book.word}}字
+                            </div>
+                            <div class="author-item-content"> {{ book.brief|limit_brief:65 }}
+                            </div>
+                            <div class="author-item-update">
+                                <a href="" class="blue"
+                                   target="_blank" title="最新章节">最近更新&nbsp;敬请期待</a><span>&nbsp;&nbsp;·&nbsp;&nbsp;2021-05-01 10:20</span>
+                            </div>
+                            <div class="author-item-button">
+                                <a href="{% url 'book_detail' book.id %}" target="_blank" class="ui-button">
+                                    书籍详情</a>
+                                <a href="" class="btnLogin ui-button ui-button-default">加入书架</a>
+                            </div>
+                        </div>
+                    </li>
+
+                {% endfor %}
+
+
+            </ul>
+        </div>
+
+    </div>
+    <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+{% endblock %}

@@ -10,7 +10,7 @@
 </head>
 <body>
 
-{% load book_info %}
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,7 +28,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                {% index_nav request %}
+                <li class="active"><a href="#">全部 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">排行</a></li>
+                <li><a href="#">完本</a></li>
+                <li><a href="#">免费</a></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">

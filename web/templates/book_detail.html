@@ -1,0 +1,104 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %} 书籍详情{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/bookdetail.css' %}">
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+    <div class="book-author ">
+        <div class="book-information-normal">
+            <a id="bookImg" class="book-detail-img" >
+                <img src="/static/img/{{ book.book_icon }}" alt="宿命之环在线阅读"></a>
+            <div class="book-info">
+                <div class="book-info-top">
+                    <h1 class="">{{ book.name }}</h1>
+                    <p class="author-name">
+                        <span class="writer">{{ book.author.name }}</span>&nbsp; 著 &nbsp;
+                        <span>{{ book.state|state }}</span> <span class="dot">·</span> <span>签约</span> <span
+                            class="dot">·</span> <span>{{ book.prop|prop }}</span>
+                        <span class="dot">·</span>
+                        <a href="{% url 'type' book.type %}" title="{{ book.type }}小说">{{ book.type }}</a><span
+                            class="dot">·</span>
+                        <a href="{% url 'category' book.category %}" title="{{ book.category }}小说">{{ book.category }}</a></p>
+                    <p class="intro">更多好看作品，快来瞧瞧吧</p>
+                    <a class="latest-chapter" href="">最新章节：敬请期待
+                    </a><span class="book-update-time">更新时间 2023-08-22 12:30:00</span>
+                    <p class="count"><em>{{ book.word }}</em><cite>字</cite>
+                        <em>{{ book.recommend }}</em><cite>总推荐</cite>
+                        <em>0</em><cite>周推荐</cite></p></div>
+                <div class="all-btn">
+                    <p class="normal-btn">
+                        <a class="btn btn-default" href="">免费试读 </a><em> </em>
+                        <a class="btn btn-default">加入书架 </a>
+                        <a class="btn btn-default">互动投票</a>
+                        <a class="btn btn-default">手机扫码读本书
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <em class="left-line"></em>
+        <div class="author-information">
+{#            作者头像#}
+            <a href="{% url 'author_detail' book.author.id %}" class="author-img">
+                <img src="/static/img/{{ book.author.icon }}" alt="">
+                <p class="level-platina">
+                    <span>{{ book.author.introduction|level }}</span>
+                </p>
+            </a>
+            <div class="author-intro">
+                <div class="hhhhh">
+{#                    作者名字#}
+                    <a href="{% url 'author_detail' book.author.id %}" class="author-name">{{ book.author.name }}</a>
+                </div>
+
+                <div class="outer-intro">
+                    <div class="icon-left"></div>
+                    <p>{{ book.author.introduction }}</p>
+                    <div class="icon-right"></div>
+                </div>
+            </div>
+            <div class="work-state">
+                <div class="book"><p class="">作品总数</p>
+                    <div class="work-number"><em class="icon-left"></em> <em class="color-font-card"
+                                                                             style="color: rgb(50, 28, 21);">{{ book.author.book_total }}</em><em
+                            class="icon-right"></em></div>
+                </div>
+                <em class="line"></em>
+                <div class="write"><p class="">累计字数</p>   <em class="color-font-card"
+                                                                  style="color: rgb(50, 28, 21);">{{ book.author.all_word }}</em>
+                </div>
+                <em class="line"></em>
+                <div class="days"><p class="">创作天数</p><em class="color-font-card"
+                                                              style="color: rgb(50, 28, 21);">{{ book.author.start_work }}</em>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro-honor-label">
+        <div class="intro-honor">
+            <div class="intro-detail">
+                <div class="title"><h2>作品简介</h2></div>
+                <p>
+                    {% for foo in book.brief|replace %}
+                        {{ foo }}
+                        {% if foo in '。?!！】；？' %}
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+
+                    {#                    {{ book.brief|replace}}#}
+                    <br>
+
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

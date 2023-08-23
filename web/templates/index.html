@@ -5,15 +5,199 @@
 
 {% block css %}
     <style>
+        html {
+            background-color: #faf7f7;
+            height: 100%;
+        }
+
         img {
             width: 100%;
         }
+
+        .left {
+            text-align: center;
+            background-color: #ffffff;
+            margin-top: 50px;
+            margin-left: 125px;
+            width: 200px;
+            height: 500px;
+            font-size: 15px;
+            color: #4cae4c;
+
+        }
+
+        .work-filter {
+            margin: 30px 30px;
+
+        }
+
+        .one {
+            display: flex;
+            float: left;
+        }
+
+        .right {
+            display: flex;
+            height: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap; /* 只要您把这个属性去掉,就不会自动换行了*/
+            margin-top: 50px;
+            margin-left: 70px;
+            width: 1000px;
+            background-color: #faf7f7;
+        }
+
+        .book-img-text .book-img-box {
+            height: 136px;
+            margin-right: 16px;
+            position: relative;
+            width: 102px;
+            z-index: 3;
+
+        }
+
+        img {
+            height: 136px;
+            width: 102px;
+            margin: 15px 15px;
+
+        }
+
+        .box {
+            margin-top: 30px;
+            margin-left: 30px;
+            padding-right: 30px;
+            padding-top: 15px;
+            height: 200px;
+            width: 470px;
+            display: flex;
+            background-color: white;
+            -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+            box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+        }
+.select-wrap{
+    background-color: #b4aeae;
+    width: 100%;
+    height: 44px;
+    font-size: 15px;
+    display: flex;
+    border-radius: 5px;
+
+}
+
     </style>
 {% endblock %}
 
 {% block content %}
-    <div>
+    {% load book_info %}
+    <div class="one">
+        <div class="left">
+            <div class="work-filter"><h3>分类</h3><br>
+                <ul class="row-1">
+                    <li><a href="{% url 'type' ' ' %}">全部</a></li>
+                    <li><a href="{% url 'type' '玄幻' %}">玄幻</a></li>
+                    <li><a href="{% url 'type' '奇幻' %}">奇幻</a></li>
+                    <li><a href="{% url 'type' '武侠' %}">武侠</a></li>
+                    <li><a href="{% url 'type' '仙侠' %}">仙侠</a></li>
+                </ul>
+                <ul class="row-2">
+                    <li><a href="{% url 'type' '都市' %}">都市</a></li>
+                    <li><a href="{% url 'type' '现实' %}">现实</a></li>
+                    <li><a href="{% url 'type' '军事' %}">军事</a></li>
+                    <li><a href="{% url 'type' '历史' %}">历史</a></li>
+                    <li><a href="{% url 'type' '游戏' %}">游戏</a></li>
+                </ul>
+                <ul class="row-3" type="category">
+                    <li><a href="{% url 'type' '体育' %}">体育</a></li>
+                    <li><a href="{% url 'type' '科幻' %}">科幻</a></li>
+                    <li><a href="{% url 'type' '诸天无限' %}">诸天无限</a></li>
+                    <li><a href="{% url 'type' '悬疑' %}">悬疑</a></li>
+                </ul>
+                <ul class="row-3" type="category">
+                    <li><a href="{% url 'type' '轻小说' %}">轻小说</a></li>
+                    <li><a href="{% url 'type' '短篇' %}">短篇</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right">
+
+            <div class="select-wrap">
+                <ul id="nnn" class="nav nav-tabs">
+                        {% manage_menu_list request %}
+{#                    <li role="presentation" ><a href="{% url 'popularity' %}">人气排行</a></li>#}
+{#                    <li role="presentation"><a href="{% url 'collection'  %}">总收藏</a></li>#}
+{#                    <li role="presentation"><a href="#">总字数</a></li>#}
+                </ul>
+            </div>
+        {% if books %}
+             {% for book in books %}
+                <li class="box">
+                    <div class="book-img-box"><a href="{% url 'book_detail' book.id %}"><img
+                            src="/static/img/{{ book.book_icon }}"
+                            alt="{{ book.name }}在线阅读"></a></div>
+                    <div class="book-mid-info"><h4><a href="{% url 'book_detail' book.id %}"
+                                                      title="{{ book.name }}最新章节在线阅读">{{ book.name }}</a></h4>
+                        <p class="author"><a class="name"
+                                             href="{% url 'author_detail' book.author.id %}">{{ book.author.name }}</a><em>
+                            | </em><a
+                                href="{% url 'type' book.type %}">{{ book.type }}</a><i> · </i>
+                            <a href="{% url 'category' book.category %}">{{ book.category }}</a><em> | </em><span><a
+                                    href="{% url 'state' book.state %}">{{ book.state|state }}</a></span></p>
+                        <p class="intro">
+
+                            {{ book.brief|limit_brief:65 }}
+                        </p>
+                        <span>{{ book.word }}</span>字 <em> | </em><span>{{ book.recommend }}</span>推荐票
+                    </div>
+                </li>
+            {% endfor %}
+        {% else%}
+             {% for c in CCC %}
+                <li class="box">
+                    <div class="book-img-box"><a href="{% url 'book_detail' c.bookname.id %}"><img
+                            src="/static/img/{{ c.bookname.book_icon }}"
+                            alt="{{ c.bookname.name }}在线阅读"></a></div>
+                    <div class="book-mid-info"><h4><a href="{% url 'book_detail' c.bookname.id %}"
+                                                      title="{{ c.bookname.name }}最新章节在线阅读">{{ c.bookname.name }}</a></h4>
+                        <p class="author"><a class="name"
+                                             href="{% url 'author_detail' c.bookname.author.id %}">{{ c.bookname.author.name }}</a><em>
+                            | </em><a
+                                href="{% url 'type' c.bookname.type %}">{{ c.bookname.type }}</a><i> · </i>
+                            <a href="{% url 'category' c.bookname.category %}">{{ c.bookname.category }}</a><em> | </em><span><a
+                                    href="{% url 'state' c.bookname.state %}">{{ c.bookname.state|state }}</a></span></p>
+                        <p class="intro">
+
+                            {{ c.bookname.brief|limit_brief:65 }}
+                        </p>
+                        <span>{{ c.bookname.word }}</span>字 <em> | </em><span>{{ c.bookname.recommend }}</span>推荐票 <em> | </em><span>{{ c.coll_num }}</span>收藏
+                    </div>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+
+
+        </div>
 
     </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+    var urlstr = location.href;
+
+  var urlstatus=false;
+  $("#nnn li a").each(function () {
+    if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+      $(this).addClass('active'); urlstatus = true;
+    } else {
+      $(this).removeClass('active');
+    }})
+
+  {#if (!urlstatus) {$("#nnn li").eq(0).addClass('active'); #}
+
+    </script>
+
+
 
 {% endblock %}

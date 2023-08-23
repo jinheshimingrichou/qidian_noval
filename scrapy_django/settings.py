@@ -57,7 +57,7 @@ ROOT_URLCONF = 'scrapy_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'BookList/templates']
+        'DIRS': [BASE_DIR / 'web/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
