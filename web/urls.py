@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path,path
-from web.views import account,home
+from web.views import account,home,comment
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.static import serve # 导入媒体文件资源
 urlpatterns = [
     re_path(r'^register/$', account.register,name='register'),
 re_path(r'^send/email/$', account.send_email,name='send_email'),
@@ -38,4 +41,10 @@ re_path(r'^word/$',home.Word,name='word'),
 re_path(r'^rank/$',home.Rank,name='rank'),
 re_path(r'^end/$',home.End,name='end'),
 re_path(r'^free/$',home.Free,name='free'),
-]
+
+    path('comment/',comment.Comment , name='comment'),
+    path('reply/<int:book_id>/<int:parent_comment_id>', comment.Comment, name='reply'),
+    re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
+    # 图片文件路径，这里要注意，之前已经在setting.py文件处设置了媒体文件路径的别名是：MEDIA_URL = "/files/" ，所以这里的路由要保持一致
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

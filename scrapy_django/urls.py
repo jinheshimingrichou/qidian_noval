@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path,include
+from django.urls import re_path,include,path
 # from BookList.views import *
 urlpatterns = [
     # re_path(r'^BookList/',include(('BookList.urls','BookList'),namespace='BookList')),
     re_path(r'^', include('web.urls')),
+path('ckeditor/', include('ckeditor_uploader.urls')),
     # path(r'^send/sms/', send_sms),
 ]

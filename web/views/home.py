@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render,HttpResponse, redirect
 from django.http import JsonResponse
 from web.forms.account import *
+from web.forms.comment import CommentForm
 from utils.image_code import check_code
 from django.db.models import Q,F
 import uuid
@@ -22,7 +23,9 @@ def Lookbook(request):
 
 def Bookdetail(req,id):
     book = Books.objects.get(id=id)
-    return render(req, 'book_detail.html', {"book":book})
+    comments = Comment.objects.filter(book=id)
+    comment_form = CommentForm()
+    return render(req, 'book_detail.html', {"book":book,'comments':comments,'comment_form':comment_form})
 
 def Authordetail(req,id):
     author = Authors.objects.get(id=id)

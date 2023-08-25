@@ -1,0 +1,66 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %} 用户登录 {% endblock %}
+
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+    <form  method="POST" id="reply_form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="row">
+                <div class="col-xs-7">
+                    {{ field }}
+                    <span class="error-msg"></span>
+                </div>
+                <div class="col-xs-5">
+                    <button onclick="confirm_submit({{ book_id }}, {{ parent_comment_id }})" class="btn btn-primary">发送</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <!-- 提交按钮 -->
+
+
+{% endblock %}
+
+
+{% block js %}
+
+    <script>
+        $(function () {
+            $(".django-ckeditor-widget").removeAttr('style');
+        });
+
+        function confirm_submit(book_id, comment_id) {
+            // 从 ckeditor 中取值
+            let content = CKEDITOR.instances['id_content'].getData();
+            // 调用 ajax 与后端交换数据
+            $.ajax({
+                url: '/comment/' + book_id + '/' + comment_id,
+                type: 'POST',
+                data: {content: content},
+                // 成功回调
+                success: function (e) {
+
+                    // if(e === '200 OK'){
+                    //     parent.location.reload();
+                    // }
+                    console.log(e)
+
+                    if (e.code === '200 OK') {
+                        // 调用父页面的函数
+                        parent.post_reply_and_show_it(e.comment_id);
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

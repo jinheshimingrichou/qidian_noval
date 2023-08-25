@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BookList.apps.BooklistConfig',
-    'web'
+    'web',
+    'mptt',
+'ckeditor', #
+    'ckeditor_uploader' #
 ]
 
 MIDDLEWARE = [
@@ -118,23 +121,27 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+import os
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+
+CKEDITOR_UPLOAD_PATH = 'ckeditor_upload'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # 腾讯云短信应用的 app_id
-# TENCENT_SMS_APP_ID = 6666666666
-#
-# # 腾讯云短信应用的 app_key
-# TENCENT_SMS_APP_KEY = "6666666666666666666666"
-#
-# # 腾讯云短信签名内容
-# TENCENT_SMS_SIGN = "Python之路"
 
+CKEDITOR_CONFIGS = {
+    #（1）默认配置
+    'default': {
+        'toolbar': 'full',  # 工具条功能
+        'height': 600,  # 编辑器高度
+        'width': "auto",  # 编辑器宽
+    },
+}
 
 WHITE_REGEX_URL_LIST=[
     "/register/",
