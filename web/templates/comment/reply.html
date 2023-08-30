@@ -1,38 +1,28 @@
-{% extends 'layout/basic.html' %}
 {% load static %}
-
-{% block title %} 用户登录 {% endblock %}
-
-
-{% block css %}
-
-{% endblock %}
-
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'plugin/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/fontawesome/css/font-awesome.min.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+<script src="{% static 'js/jquery/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'plugin/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% load mptt_tags %}
     <form  method="POST" id="reply_form">
         {% csrf_token %}
         <div class="form-group">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <div class="row">
-                <div class="col-xs-7">
-                    {{ field }}
-                    <span class="error-msg"></span>
-                </div>
-                <div class="col-xs-5">
-                    <button onclick="confirm_submit({{ book_id }}, {{ parent_comment_id }})" class="btn btn-primary">发送</button>
-                </div>
+            <div id="test">
+                {{ comment_form.media }}
+                {{ comment_form.content }}
             </div>
         </div>
-
     </form>
     <!-- 提交按钮 -->
-
-
-{% endblock %}
-
-
-{% block js %}
+    <button onclick="confirm_submit({{ book_id }}, {{ parent_comment_id }})" class="btn btn-primary">发送</button>
 
     <script>
         $(function () {
@@ -42,9 +32,10 @@
         function confirm_submit(book_id, comment_id) {
             // 从 ckeditor 中取值
             let content = CKEDITOR.instances['id_content'].getData();
+            console.log('reply,,,,',content)
             // 调用 ajax 与后端交换数据
             $.ajax({
-                url: '/comment/' + book_id + '/' + comment_id,
+                url: '/reply/' + book_id + '/' + comment_id+'/',
                 type: 'POST',
                 data: {content: content},
                 // 成功回调
@@ -53,7 +44,7 @@
                     // if(e === '200 OK'){
                     //     parent.location.reload();
                     // }
-                    console.log(e)
+                    console.log('reply',e)
 
                     if (e.code === '200 OK') {
                         // 调用父页面的函数
@@ -63,4 +54,7 @@
             });
         }
     </script>
-{% endblock %}
+
+</body>
+</html>
+

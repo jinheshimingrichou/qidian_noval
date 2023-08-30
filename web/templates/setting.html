@@ -1,0 +1,56 @@
+{% extends 'layout/personbase.html' %}
+{% load static %}
+
+{% block title %} 用户登录 {% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <style>
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="account">
+        <div class="title">用户信息</div>
+        <form enctype="multipart/form-data" method="POST" action="{% url 'setting' id %}" novalidate>
+            {% csrf_token %}
+            <div>
+                <div>
+                    <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+                     <img style="height: 80px;width: 80px;border-radius: 80px" class="avatar-show" src="http://127.0.0.1:8000/media/{{ icon }}" alt="归云沐沐的头像">
+                                   {{ form.icon }}
+                </div>
+                <div >
+                    <label for="{{ form.sex.id_for_label }}">{{ form.sex.label }}</label>
+                    {{ form.sex }}
+
+                </div>
+                <div>
+                     <label for="{{ form.gory.id_for_label }}">{{ form.gory.label }}</label>
+                    {{form.gory}}
+                </div>
+                <div style="height: 300px">
+                     <label for="{{ form.introduction.id_for_label }}">{{ form.introduction.label }}</label>
+                    {{form.introduction}}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <input type="submit" class="btn btn-primary" value="提  交"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+
+    </script>
+{% endblock %}

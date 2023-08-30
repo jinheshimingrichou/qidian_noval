@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path,include,path
 # from BookList.views import *
+import notifications.urls
 urlpatterns = [
     # re_path(r'^BookList/',include(('BookList.urls','BookList'),namespace='BookList')),
     re_path(r'^', include('web.urls')),
 path('ckeditor/', include('ckeditor_uploader.urls')),
+   re_path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('notice/', include('notice.urls', namespace='notice')),
     # path(r'^send/sms/', send_sms),
 ]

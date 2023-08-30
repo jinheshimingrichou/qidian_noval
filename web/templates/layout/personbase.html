@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'plugin/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/fontawesome/css/font-awesome.min.css' %}">
+    <style>
+        .hhh {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+{% load book_info %}
+<nav class="hhh navbar navbar-default">
+    <div class="container-fluid" style="display:flex;background-color: #ffffff">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class=" navbar-brand" href="{% url 'index' %}">Novel</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class=" collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% person_nav request %}
+            </ul>
+
+            {#            <ul style="height: 50px;background-color: #0f0f0f">sds</ul>#}
+            <ul class="nav navbar-nav navbar-right " style="margin-left: 80px">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{ request.noval.user.username }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'logout' %}">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+{% block content %}{% endblock %}
+
+
+<script src="{% static 'js/jquery/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'plugin/bootstrap/js/bootstrap.min.js' %}"></script>
+{% block js %}{% endblock %}
+</body>
+</html>

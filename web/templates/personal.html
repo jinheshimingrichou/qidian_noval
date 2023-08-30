@@ -1,0 +1,96 @@
+{% extends 'layout/personbase.html' %}
+{% load static %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/firstpage.css' %}">
+    <style>
+    .fontcolor{
+        color: white;
+    }
+     .fontcolor:hover{
+        color: #84f8e7;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+    <div class="qdp-wrapper">
+        <div class="personal-sideBar" data-l1="2">
+            <ul class="sideBar-group">
+                <li class="active">
+                    <a href="{% url 'firstpage' %}" class="sideBar-list-a"><i class="iconfont icon-home"></i>首页</a>
+                </li>
+                <li class="">
+                    <a href="" class="sideBar-list-a" >账务中心</a>
+                </li>
+                <li class="">
+                    <a href="" class="sideBar-list-a" >我的票夹</a>
+                </li>
+                <li class="">
+                    <a href="" class="sideBar-list-a" >我的书评</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 首页 页面 -->
+        <div class="qdp-content home-content" >
+
+            <div class="home-user-wrapper qdp-border" >
+                <div class="home-user-avatar" >
+                    <a href="{% url 'setting' user.id%}" class="fontcolor user-avatar-a">
+                        <img class="user-avatar-img"
+                             src="{{ MEDIA_URL }}{{user.icon }}"
+                             alt="{{ user.name.username }}的头像"></a>
+                    <a href="" target="_blank" class="home-user-vip icon user-level-cy"></a>
+                </div>
+                <div class="home-user">
+                    <h3><a class="fontcolor" href="{% url 'setting' user.id%}" >{{ user.name.username }}</a><a href="" class="home-user-level">LV {{ user.level }}</a></h3>
+                    <div class="home-user-data">
+                        <span id="elFriendGuide" style="height:56px;display:inline-block;">
+                            <a href="" class="fontcolor mr12">关注
+                                <b class="fontcolor home-user-b">0</b>
+                            </a>
+                            <a href="" class="fontcolor mr12 ml12">粉丝 <b class="home-user-b fontcolor">0</b></a></span></div>
+                </div>
+            </div>
+            <ul class="qdp-border home-msg-wrapper">
+                <li class="home-msg">
+                    <div class="home-msg-title"><b>账户余额</b></div>
+                    <div class="home-msg-data"><a href="" ><b
+                            class="home-msg-b">{{ user.dianbi }}</b>点币</a></div>
+                    <a class="home-msg-more blue elPayBtn j_QQLiveE" href="" target="_blank">充值</a>
+                </li>
+                <li class="home-msg" >
+                    <div class="home-msg-title"><b>我的票夹</b></div>
+                    <div class="home-msg-data"><a href="/ticketbox" ><b
+                            class="home-msg-b home-msg-num">0</b>月票&nbsp;·&nbsp;<span class="home-msg-num">1</span>推荐票</a>
+                    </div>
+                    <a class="home-msg-more blue" href="" >立即查看</a>
+                </li>
+                <li class="home-msg" >
+                    <div class="home-msg-title"><b>我的书架</b></div>
+                    <div class="home-msg-data"><a href="{% url 'bookshelf' %}" ><b class="home-msg-b">{{ user.name.myviewbook_set.count }}</b>本藏书</a>
+                    </div>
+                    <a class="home-msg-more blue" href="{% url 'bookshelf' %}" >立即查看</a>
+                </li>
+                <li class="home-msg" data-l3="2">
+                    <div class="home-msg-title"><b>我的书单</b></div>
+                    <div class="home-msg-data"><a href="" target="_blank"><b class="home-msg-b">1</b>个关注</a></div>
+                    <a class="home-msg-more blue" href="" target="_blank">立即查看</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+
+    </script>
+
+
+
+{% endblock %}

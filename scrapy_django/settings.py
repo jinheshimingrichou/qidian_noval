@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-o5b43^=*wmh$^1tz+xo!f-vre27yrsb0j)9nj7zj4)twj7jf_$
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -40,10 +38,12 @@ INSTALLED_APPS = [
     'BookList.apps.BooklistConfig',
     'web',
     'mptt',
-'ckeditor', #
-    'ckeditor_uploader' #
+    'ckeditor',  #
+    'ckeditor_uploader',  #
+    'notifications',
+    'notice'
 ]
-
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,13 +69,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
+
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'scrapy_django.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -86,7 +87,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -106,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -118,14 +117,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 import os
+
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'web/media/')
 
 CKEDITOR_UPLOAD_PATH = 'ckeditor_upload'
 # Default primary key field type
@@ -133,9 +131,8 @@ CKEDITOR_UPLOAD_PATH = 'ckeditor_upload'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CKEDITOR_CONFIGS = {
-    #（1）默认配置
+    # （1）默认配置
     'default': {
         'toolbar': 'full',  # 工具条功能
         'height': 600,  # 编辑器高度
@@ -143,7 +140,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-WHITE_REGEX_URL_LIST=[
+WHITE_REGEX_URL_LIST = [
     "/register/",
     "/send/email/",
     "/login/",
@@ -152,8 +149,8 @@ WHITE_REGEX_URL_LIST=[
     "/index/",
     '/logout/'
 ]
-
-try :
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+try:
     from .local_settings import *
 except ImportError:
     pass

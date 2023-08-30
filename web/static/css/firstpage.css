@@ -1,0 +1,213 @@
+
+        .qdp-wrapper {
+  width: 990px;
+  min-height: calc(100vh - 277px);
+  margin: 0 auto
+}
+.qdp-wrapper:after {
+  display: table;
+  clear: both;
+  content: ''
+}
+.qdp-content {
+  display: table-cell;
+  width: 2000px;
+  padding: 16px 0 0;
+  color: #7f7f7f
+}
+.personal-sideBar {
+  float: left;
+  width: 174px;
+  margin: 36px 40px 0 0
+}.home-content {
+  color: #3e3d43
+}
+.home-user-wrapper {
+  /*max-height: 150px;*/
+  /*padding-bottom: 50px;*/
+  position: relative;
+  margin: 20px 0 0 0;
+  padding: 55px 0 0 0;
+  color: #fff;
+   background: #fff url(https://s1.4sai.com/src/img/jpg/87/8754ea7942754656bec62c5a50d8c070.jpg?imageMogr2/auto-orient/thumbnail/!240x160r/gravity/Center/crop/240x160/quality/85/&e=1735488000&token=1srnZGLKZ0Aqlz6dk7yF4SkiYf4eP-YrEOdM1sob:YeVh15FYFgvjhdaJtOf9thAopF4=) center no-repeat;
+              background-size: cover;
+            /*right: 20px;*/
+            /*margin: 5px 0 0 0*/
+}
+.home-user-wrapper .user-progress-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  margin: 0 0 0 8px;
+  vertical-align: 1.1ex
+}
+.home-user-wrapper .qdp-progress-done {
+  background: #ee4259
+}
+.home-user-wrapper .qdp-button {
+  right: 20px;
+  margin: 5px 0 0 0
+}.qdp-border,
+.qdp-hovertips
+ {
+  border: 1px solid #e0deda;
+  border-radius: 4px
+}.home-user {
+  margin: 0 0 0 140px
+}
+.home-user .icon-gear {
+  margin-left: .5px;
+  vertical-align: -.3ex
+}
+.home-user-avatar {
+  position: relative;
+  float: left;
+  width: 140px;
+  text-align: center
+}
+.home-user-vip {
+  font-size: 12px;
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  margin: 0 0 0 -25px;
+  color: #fff;
+  border-radius: 2px
+}
+.home-user-level {
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 0 0 9px;
+  padding: 0 6px;
+  vertical-align: .5ex;
+  color: #fff;
+  border-radius: 2px;
+  background: #ee4259
+}
+.home-user h3 {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 13px 20px 20px 0;
+  color: #fff
+}
+.home-user-safety {
+  line-height: 54px;
+  border-bottom: 1px solid #e0deda
+}
+.home-user-safety a[href]:hover {
+  color: #ee4259
+}
+.home-user-data {
+  line-height: 54px
+}
+.home-user-data a[href]:hover {
+  color: #ee4259
+}
+.home-user-b {
+  font-family: arial;
+  font-size: 20px;
+  margin: 0 0 0 8px
+}.home-user-wrapper .qdp-button {
+  right: 20px;
+  margin: 5px 0 0 0
+}
+.user-avatar-a {
+  display: inline-block;
+  border-radius: 50%
+}
+.user-avatar-img {
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
+  border: 3px solid #fff;
+  border: 3px solid rgba(255,255,255,.5);
+  border-radius: 50%
+}.home-user-data {
+  line-height: 54px
+}
+.home-user-data a[href]:hover {
+  color: #ee4259
+}
+.home-user-b {
+  font-family: arial;
+  font-size: 20px;
+  margin: 0 0 0 8px
+}
+.home-msg-wrapper {
+  font-size: 0;
+  line-height: 0;
+  margin: 20px 0 0 0;
+  background: #fff
+}.ml12 {
+  margin-left: 12px
+}
+.mr12 {
+  margin-right: 12px
+}.home-msg-wrapper .iconfont.yellow {
+  color: #ffa100
+}
+.home-msg-wrapper .iconfont.green {
+  color: #1ecfa7
+}
+.home-msg-wrapper .iconfont.blue {
+  color: #1189e4
+}
+.home-msg {
+  font-size: 14px;
+  line-height: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 25%;
+  padding: 20px 20px 0;
+  border-left: 1px solid #e0deda
+}
+.home-msg:first-child {
+  border: none
+}
+.home-msg-title {
+  line-height: 16px
+}
+.home-msg-title .iconfont {
+  font-size: 16px;
+  margin: 0 8px 0 0
+}
+.home-msg-data {
+  line-height: 1;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0deda
+}
+.home-msg-data a[href]:hover {
+  color: #ee4259
+}
+.home-msg-b {
+  font-size: 26px;
+  font-weight: 600;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 102px;
+  margin: 0 6px 0 0;
+  vertical-align: -.4ex;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}
+.home-msg-b.home-msg-num {
+  max-width: 45px
+}
+.home-msg-more {
+  display: block;
+  margin: 13px 0
+}
+.home-msg-num {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 18px;
+  vertical-align: -.4ex;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}.personal-sideBar {
+    float: left;
+    width: 174px;
+    margin: 36px 40px 0 0;
+}.sideBar-group {
+    margin: 0 0 20px;
+}

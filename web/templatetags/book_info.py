@@ -24,6 +24,10 @@ def prop(x):  # 接受两个值
     else:
         return 'VIP'
 
+@register.filter(name='iscollection')  # 自定义过滤器
+def iscollection(x,y,z):  # 接受两个值
+    return x.filter(book=y,user=z).collection
+
 @register.filter(name='level')  # 自定义过滤器
 def level(x):  # 接受两个值
     if x[4:6] in ['白金','大神']:
@@ -59,14 +63,26 @@ def manage_menu_list(request):
 def index_nav(request):
     data_list = [
         {'title': '全部', 'url': reverse("index")},
-        {'title': '排行', 'url': reverse("rank")},
+        {'title': '排行', 'url': reverse('rank')},
         {'title': '完本', 'url': reverse("end")},
         {'title': '免费', 'url': reverse("free")},
     ]
-
     for item in data_list:
         # 当前用户访问的URL：request.path_info:
         if request.path_info.startswith(item['url']):
             item['class'] = 'active'
+    return {'data_list': data_list}
 
+
+@register.inclusion_tag('inclusion/menu_list.html')
+def person_nav(request):
+    data_list = [
+        {'title': '我的首页', 'url': reverse("firstpage")},
+        {'title': '我的书架', 'url': reverse("bookshelf")},
+        {'title': '消息中心', 'url': reverse("notice:message")},
+    ]
+    for item in data_list:
+        # 当前用户访问的URL：request.path_info:
+        if request.path_info.startswith(item['url']):
+            item['class'] = 'active'
     return {'data_list': data_list}

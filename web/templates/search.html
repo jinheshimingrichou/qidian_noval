@@ -51,6 +51,37 @@
     {% load book_info %}
 <div class="big">
  <div id="result" class="author-content-wrapper" >
+ {% if authors %}
+    <div  class="author-content">
+            <ul  class="author-work" >
+                <li class="author-work-line"></li>
+                {% for author in authors %}
+                    <br>
+                    <li class="author-item">
+                        <a href="{% url 'author_detail' author.id %}}" target="_blank" class="author-item-book">
+                            <img src="/static/img/{{ author.icon }}" class="author-item-img" style="height: 120px;width: 120px;border-radius: 120px"
+                                 alt="{{ author.name }}">
+                        </a>
+                        <div class="author-item-msg">
+                            <div class="author-item-title">
+                                <h2 style="margin-left: 70px;padding-top: 20px;font-size: 30px">
+                                    <a href="{% url 'author_detail' author.id %}" >
+                                        {{ author.name}}
+                                    </a>
+                                </h2>
+                            </div>
+
+                            <div class="author-item-content" style="margin-top: 30px;margin-left: 60px;font-size: 20px"> {{ author.introduction }}
+                            </div>
+                        </div>
+                    </li>
+                    <hr>
+                {% endfor %}
+
+
+            </ul>
+        </div>
+ {% endif %}
         <div  class="author-content">
             <ul  class="author-work" >
                 <li class="author-work-line"></li>
@@ -59,7 +90,7 @@
                     <li class="author-item">
                         <a href="{% url 'book_detail' book.id %}}" target="_blank" class="author-item-book">
                             <img src="/static/img/{{ book.book_icon }}" class="author-item-img"
-                                 alt="不死不灭在线阅读">
+                                 alt="{{ book.name }}在线阅读">
                         </a>
                         <div class="author-item-msg">
                             <div class="author-item-title">

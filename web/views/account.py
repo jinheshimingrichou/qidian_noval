@@ -6,6 +6,7 @@ from utils.image_code import check_code
 from django.db.models import Q
 import uuid
 import datetime
+from django.contrib.auth import authenticate, login
 from io import BytesIO
 def register(request):
     # 注册
@@ -15,7 +16,18 @@ def register(request):
     form = RegisterModelForm(data=request.POST)
     # print('lllllllllllllllllllll',request.POST)
     if form.is_valid():
-        form.save()
+        instance=form.save()
+
+        #生成信息记录
+        BaseInfo.objects.create(
+            name=instance,
+            icon='../static/img/author/辰东.jpg',
+            introduction='暂时没有简介',
+            sex=1,
+            gory='北京',
+            level=1,
+            dianbi=1
+        )
         return JsonResponse({'status':True,'data':'/login/'})
     else:
         return JsonResponse({'status': False, 'error': form.errors})
@@ -54,7 +66,7 @@ def login_email(request):
 
 
 
-def login(request):
+def Login(request):
     """ 用户名和密码登录 """
     if request.method == 'GET':
         form = LoginForm(request)
@@ -69,10 +81,12 @@ def login(request):
 
         user_object = UserInfo.objects.filter(Q(email=username) | Q(username=username)).filter(
             password=password).first()
+
         if user_object:
             # 登录成功为止1
             request.session['user_id'] = user_object.id
             request.session.set_expiry(60 * 60 * 24 * 14)
+
 
             return redirect('index')
 

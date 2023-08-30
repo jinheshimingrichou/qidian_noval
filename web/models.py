@@ -1,6 +1,6 @@
 from django.db import models
-
-
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.urls import reverse
 # Create your models here.
 
 class Authors(models.Model):
@@ -34,21 +34,29 @@ class Books(models.Model):
     category = models.CharField(verbose_name='书的类型小', max_length=30)
     word=models.CharField(verbose_name='字数',max_length=30)
     brief = models.TextField(verbose_name='简介', default='这个人很懒，还没有写简介')
-    collection = models.BooleanField(verbose_name='收藏', default=False)
     recommend = models.BigIntegerField(verbose_name='推荐票')
 
+    def get_absolute_url(self):
+        return reverse('book_detail', args=[self.id])
 
-class Poll(models.Model):
-    # 投票记录
-    votework=models.ForeignKey(verbose_name='投票作品',to='Books',db_column='votework',on_delete=models.DO_NOTHING)
-    voteuser=models.ForeignKey(verbose_name='投票人',to='UserInfo',db_column='voteuser',on_delete=models.DO_NOTHING)
-    datetime=models.DateTimeField(verbose_name='投票日期')
-    tick_choice = (
-        (1, '推荐票'),
-        (2, '月票')
-    )
-    tick= models.SmallIntegerField(verbose_name='属性', choices=tick_choice)
+class MyViewBook(models.Model):
+    #我的书架
+    user = models.ForeignKey(verbose_name='用户', to='UserInfo', db_column='user', on_delete=models.CASCADE)
+    book = models.ForeignKey(verbose_name='收藏作品', to='Books', db_column='book', on_delete=models.CASCADE)
+    collection = models.BooleanField(verbose_name='收藏', default=False)
+    time = models.DateTimeField(verbose_name='阅读时间', auto_now_add=True)  # 收藏时间
 
+# class Poll(models.Model):
+#     # 投票记录
+#     votework=models.ForeignKey(verbose_name='投票作品',to='Books',db_column='votework',on_delete=models.DO_NOTHING)
+#     voteuser=models.ForeignKey(verbose_name='投票人',to='UserInfo',db_column='voteuser',on_delete=models.DO_NOTHING)
+#     datetime=models.DateTimeField(verbose_name='投票日期')
+#     tick_choice = (
+#         (1, '推荐票'),
+#         (2, '月票')
+#     )
+#     tick= models.SmallIntegerField(verbose_name='属性', choices=tick_choice)
+#
 
 
 class UserInfo(models.Model):
@@ -58,15 +66,15 @@ class UserInfo(models.Model):
 
 class BaseInfo(models.Model):
     # 个人基本信息
-    name = models.ForeignKey(verbose_name='用户名', to='UserInfo',db_column='name',on_delete=models.CASCADE)  #
+    name = models.OneToOneField(verbose_name='用户名', to='UserInfo',db_column='name',on_delete=models.CASCADE)  #
     icon = models.ImageField(verbose_name='头像',upload_to='user/', blank=True) #
     introduction = models.CharField(verbose_name='简介', max_length=255, default="暂无相关介绍")  #
     sex_choice = (
-        (1, '推荐票'),
-        (2, '月票')
+        (1, '男'),
+        (2, '女')
     )
-    sex = models.SmallIntegerField(verbose_name='性别', choices=sex_choice)
-    gory=models.CharField(verbose_name='地区',max_length=10)
+    sex = models.SmallIntegerField(verbose_name='性别', choices=sex_choice,default=1)
+    gory=models.CharField(verbose_name='地区',max_length=10,)
     level_choice = (
         (1, 'LV1'),
         (2, 'LV2'),
@@ -75,23 +83,23 @@ class BaseInfo(models.Model):
         (5, 'LV5'),
 
     )
-    level = models.SmallIntegerField(verbose_name='等级', choices=level_choice)
+    level = models.SmallIntegerField(verbose_name='等级', choices=level_choice,default=1)
     dianbi=models.PositiveIntegerField(verbose_name='点币')
 
 
-class BillFold(models.Model):
-    # 票夹
-    name = models.ForeignKey(verbose_name='用户名', to='UserInfo',db_column='name',on_delete=models.CASCADE)  #
-    recom=models.PositiveIntegerField(verbose_name='推荐票数')
-    month = models.PositiveIntegerField(verbose_name='月票数')
+# class BillFold(models.Model):
+#     # 票夹
+#     name = models.ForeignKey(verbose_name='用户名', to='UserInfo',db_column='name',on_delete=models.CASCADE)  #
+#     recom=models.PositiveIntegerField(verbose_name='推荐票数')
+#     month = models.PositiveIntegerField(verbose_name='月票数')
 
-class Recharge(models.Model):
-    # 充值记录
-    name = models.ForeignKey(verbose_name='用户名', to='UserInfo', db_column='name', on_delete=models.CASCADE)
-    order = models.CharField(verbose_name='订单号', max_length=64, unique=True)  # 唯一索引
-    count = models.IntegerField(verbose_name='充值金额')
-    price = models.IntegerField(verbose_name='实际支付价格')
-    create_datetime = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+# class Recharge(models.Model):
+#     # 充值记录
+#     name = models.ForeignKey(verbose_name='用户名', to='UserInfo', db_column='name', on_delete=models.CASCADE)
+#     order = models.CharField(verbose_name='订单号', max_length=64, unique=True)  # 唯一索引
+#     count = models.IntegerField(verbose_name='充值金额')
+#     price = models.IntegerField(verbose_name='实际支付价格')
+#     create_datetime = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -109,4 +117,7 @@ class Comment(MPTTModel):
     reply_to = models.ForeignKey(UserInfo, null=True, blank=True, on_delete=models.CASCADE, related_name='replyers')
     class MPTTMeta:
         order_insertion_by = ['created']
+
+    def get_user(self):
+        return self.user
 

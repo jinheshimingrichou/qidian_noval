@@ -1,0 +1,155 @@
+{% extends 'layout/personbase.html' %}
+{% load static %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block css %}
+    {#    <link rel="stylesheet" href="{% static 'css/firstpage.css' %}">#}
+    <style>
+        .shelf {
+
+            margin-top: 50px;
+            font-size: 18px;
+            width: 80%;
+
+        }
+
+        .hh123 {
+            width: 110px;
+        }
+
+        .hh111 {
+            margin-left: 80px;
+        }
+
+        .shelf div span {
+            margin-left: 50px;
+        {#padding-left: -100px;#} margin-right: 100px;
+        }
+
+        .left {
+            margin-left: 50px;
+            height: 500px;
+            width: 200px;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .left ul li {
+            margin-top: 30px;
+        }
+        .www{
+           width: 400px;
+            {#display: inline;#}
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+    <div style="display: flex;margin-left: 200px">
+        <div class="left">
+            <div class="" data-l1="2">
+                <ul class="">
+                    <li class="">
+                        <a href="{% url 'firstpage' %}" class="s"><i
+                                class=""></i>首页</a>
+                    </li>
+                    <li class="">
+                        <a href="" class="">账务中心</a>
+                    </li>
+                    <li class="">
+                        <a href="" class="">我的票夹</a>
+                    </li>
+                    <li class="">
+                        <a href="" class="">我的书评</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="shelf ">
+            <div style="display: flex">
+                <div class="www">书名</div>
+                <span> 上次阅读时间</span>
+                <div class="hh111">作者</div>
+            </div>
+            {% for book in books %}
+                <div style="margin-top: 15px;border: solid 1px aquamarine;display: flex">
+                <div class="www"><a  href="{% url 'book_detail' book.book.id %}">{{ book.book.name }}</a> </div>
+                   <div >
+                       <span
+                        style="width: 200px">{{ book.time }}</span>
+                   </div>
+
+                    <a href="{% url 'author_detail' book.book.author.id %}">{{ book.book.author.name }}</a>
+                    <button id="delMybook" onclick="bindClickDelMybook({{ book.book.id }})" style="position: absolute;right: 50px"> delete</button>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+    var csrftoken = getCookie('csrftoken');
+    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+        //删除
+        function bindClickDelMybook(id) {
+            console.log('jiazai')
+                $.ajax({
+                    url: "{% url 'bookshelf' %}",
+                    type: "DELETE",
+                    data: {'id':id},
+                    dataType: "JSON", // 将服务端返回的数据反序列化为字典
+                    success: function (res) {
+                        console.log('diyic')
+                        // a
+                        if (res.state) {
+                            {#location.reload();#}
+                            window.location.reload();
+                            console.log('chenggong',res)
+                        } else {
+                            console.log('shibai',res)
+                            // 错误信息
+
+                        }
+                    }
+                })
+
+
+        }
+    </script>
+
+
+
+{% endblock %}

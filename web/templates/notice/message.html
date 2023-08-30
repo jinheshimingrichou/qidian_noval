@@ -1,0 +1,53 @@
+{% extends 'layout/personbase.html' %}
+{% load static %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/firstpage.css' %}">
+    <style>
+    .fontcolor{
+        color: white;
+    }
+     .fontcolor:hover{
+        color: #84f8e7;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+<div class="container">
+    <div class="row mt-4 ml-4">
+        <a href="{% url 'notice:readed' %}" class="btn btn-warning" role="button">一键已读</a>
+    </div>
+    <!-- 未读通知列表 -->
+    <div class="row mt-2 ml-4">
+        <ul class="list-group">
+            {% for notice in notices %}
+                <li class="list-group-item" id="notice_link">
+                    <a href="{% url "notice:readed" %}?book_id={{ notice.target.id }}&notice_id={{ notice.id }}"
+                       target="_blank"
+                    >
+                    <span style="color: #5897fb;">
+                        {{ notice.actor }}
+                    </span>
+                        在 <span style="color: #01a252;">{{ notice.target.name }}</span> {{ notice.verb }}。
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+
+    </script>
+
+
+
+{% endblock %}

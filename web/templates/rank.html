@@ -57,17 +57,17 @@
             </ul>
             <p class="line"></p><h4>热门作品排行</h4>
             <ul class="list_type_detective">
-                <li class=""><a href="">月票榜</a><cite></cite></li>
-                <li class=""><a href="">推荐榜</a><cite></cite></li>
-                <li class=""><a href="">VIP收藏榜</a><cite></cite></li>
+                <li class=""><a  href="{% url 'yuepiao' %}">月票榜</a><cite></cite></li>
+                <li  class=""><a  href="{% url 'tuijian' %}">推荐榜</a><cite></cite></li>
+                <li class=""><a href="{% url 'vipcollection' %}">VIP收藏榜</a><cite></cite></li>
             </ul>
 
         </div>
 
     </div>
- <div class="author-content-wrapper" >
-        <div class="author-content">
-            <ul class="author-work" >
+ <div id="result" class="author-content-wrapper" >
+        <div  class="author-content">
+            <ul  class="author-work" >
                 <li class="author-work-line"></li>
                 {% for book in books %}
                     <br>
@@ -114,4 +114,43 @@
 </div>
 
 
+{% endblock %}
+
+{% block js %}
+    <script>
+     $(function () {
+            bindClickBtntuijian();
+        })
+
+
+    function bindClickBtntuijian() {
+         console.log('ok')
+         {#$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});//post请求时用来绕过csrf验证的，同表单提交的{% csrf_token %}一样#}
+           $('#tuijian').click(function () {
+                 $.ajax({
+                    url: "{% url 'tuijian' %}",
+                    type: "GET",
+                    data: {'rank':'recommend'},
+                    dataType: "JSON", // 将服务端返回的数据反序列化为字典
+                    success: function (res) {
+                        $("html").html(res);
+                        console.log('ok')
+                        alert('ok')
+                        console.log(res)
+                        // ajax请求发送成功之后，自动执行的函数； res就是后端返回的值
+                        if (res.status) {
+                                console.log({'status':true})
+                        } else {
+                            // 错误信息
+                           console.log({'status':false})
+                           console.log(res)
+                        }
+
+                    }
+                })
+        }  )
+
+    }
+
+    </script>
 {% endblock %}
