@@ -29,11 +29,11 @@ class ThebookSpider(scrapy.Spider):
                 , dont_filter=True
             )
             # #全站爬取
-            # if self.page <= 5:#获取的页数
+            # if self.page <= 10:#获取的页数
             #     # 拼接新的url
             #     new_url = format(self.url%self.page)
             #     self.page += 1
-            #     # 手动请求发送
+            #     # 手动请求发送。
             #     yield scrapy.Request(url=new_url, callback=self.parse)
             break#仅执行一次
 
@@ -61,6 +61,7 @@ class ThebookSpider(scrapy.Spider):
         item['recommend'] =recommend
         item['brief'] = brief
         yield item
+
 
 
     def parse_author(self, response, **kwargs):
