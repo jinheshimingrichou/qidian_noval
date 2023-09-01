@@ -6,27 +6,36 @@ class ThebookSpider(scrapy.Spider):
     allowed_domains = ["qidian.com"]
     start_urls = ["https://www.qidian.com/all/orderId11/"]
 
+    url='https://www.qidian.com/all/orderId11-page%d/'
+    page=2
     def parse(self, response,**kwargs):
         # #打开本地保存已破译的html
-        return localbook()
-        # li_list=response.xpath("//*[@id='book-img-text']/ul/li")
-        # for li in li_list:
-        #     name=li.xpath("./div[2]/h2/a/@href").extract_first()
-        #     href= li.xpath("./div[2]/p/a[1]/@href").extract_first()
-        #     yield scrapy.Request(
-        #         url='https:{}'.format(href),
-        #         method='get',
-        #         callback=self.parse_author
-        #         , dont_filter=True
-        #     )
-        #
-        #     yield scrapy.Request(
-        #         url='https:{}'.format(name),
-        #         method='get',
-        #         callback=self.parse_book
-        #         , dont_filter=True
-        #     )
-            # break
+        # return localbook()
+        li_list=response.xpath("//*[@id='book-img-text']/ul/li")
+        for li in li_list:
+            name=li.xpath("./div[2]/h2/a/@href").extract_first()#作者详情地址
+            href= li.xpath("./div[2]/p/a[1]/@href").extract_first()#小说详情地址
+            yield scrapy.Request(
+                url='https:{}'.format(href),
+                method='get',
+                callback=self.parse_author
+                , dont_filter=True
+            )
+
+            yield scrapy.Request(
+                url='https:{}'.format(name),
+                method='get',
+                callback=self.parse_book
+                , dont_filter=True
+            )
+            # #全站爬取
+            # if self.page <= 5:#获取的页数
+            #     # 拼接新的url
+            #     new_url = format(self.url%self.page)
+            #     self.page += 1
+            #     # 手动请求发送
+            #     yield scrapy.Request(url=new_url, callback=self.parse)
+            break#仅执行一次
 
     def parse_book(self,response,**kwargs):
         book_icon='https:'+response.xpath('//*[@id="bookImg"]/img/@src').get()
