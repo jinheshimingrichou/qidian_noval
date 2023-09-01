@@ -71,7 +71,6 @@ class BookPipeline(ImagesPipeline):  # 继承图片管道
         else:
             yield scrapy.Request(item['book_icon'])
 
-
     def file_path(self, request, response=None, info=None, *, item=None):
         # print('assssaaaaa',request.body)
         file_name = item['name'] + '.jpg'

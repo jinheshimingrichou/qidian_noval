@@ -38,10 +38,9 @@ for key in font_cmap:
 
 print(font_cmap)
 
-
 #替换映射
 for key in font_cmap:
     html_data = html_data.replace('&#'+str(key)+';',str(font_cmap[key]))
-
+#保存页面
 with open("okkk.html","w",encoding="utf-8") as f:
     f.write(html_data)
