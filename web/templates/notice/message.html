@@ -6,40 +6,81 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/firstpage.css' %}">
     <style>
-    .fontcolor{
-        color: white;
-    }
-     .fontcolor:hover{
-        color: #84f8e7;
-    }
+        .length {
+            width: 450px;
+        }
+
+        .dis {
+            display: flex;
+        }
+        .height{
+
+            height: 200px;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
     {% load book_info %}
-<div class="container">
-    <div class="row mt-4 ml-4">
-        <a href="{% url 'notice:readed' %}" class="btn btn-warning" role="button">一键已读</a>
-    </div>
-    <!-- 未读通知列表 -->
-    <div class="row mt-2 ml-4">
-        <ul class="list-group">
-            {% for notice in notices %}
-                <li class="list-group-item" id="notice_link">
-                    <a href="{% url "notice:readed" %}?book_id={{ notice.target.id }}&notice_id={{ notice.id }}"
-                       target="_blank"
-                    >
-                    <span style="color: #5897fb;">
-                        {{ notice.actor }}
-                    </span>
-                        在 <span style="color: #01a252;">{{ notice.target.name }}</span> {{ notice.verb }}。
+    <div class="container">
+        <div class="row mt-4 ml-4">
+            <a href="{% url 'notice:readed' %}" class="btn btn-warning" role="button">一键已读</a>
+        </div>
+        <!-- 未读通知列表 -->
+        <div class="row mt-2 ml-4 height pre-scrollable">
+            <ul class="list-group">
+            {% if unnotices %}
+            {% for notice in unnotices %}
+                    <li class="list-group-item dis" id="notice_link">
+                        <a class="dis" href="{% url "notice:readed" %}?book_id={{ notice.comment.book.id }}&notice_id={{ notice.id }}"
+                               target="_blank">
+                        <div class="length">
+                            <span style="margin-right: 5px;color: #ce8483">{{ notice.comment.user.username }}</span>
+                            在 <span style="margin: 5px;color: #1ecfa7">{{ notice.comment.book.name }}</span> 中回复了你。
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.create_date|date:"Y/m/d H:i" }}
+                        <span style="margin-left: 100px">{{ notice.comment.content|limit_comment:20 }}</span>
                     </a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
-                </li>
-            {% endfor %}
-        </ul>
+                    </li>
+                {% endfor %}
+                {% else %}
+                <div style="margin: 100px;font-size: 23px">暂无未读消息</div>
+            {% endif %}
+
+            </ul>
+        </div>
+    <div class="row mt-2 ml-4">
+            <ul class="list-group">
+            <div>历史消息</div>
+            {% if notices %}
+            {% for notice in notices %}
+                    <li class="list-group-item dis" id="notice_link">
+                        <div class="length">
+                            <a href="{% url "notice:readed" %}?book_id={{ notice.comment.book.id }}&notice_id={{ notice.id }}"
+                               target="_blank"
+                            ></a>
+                            <a href="">
+                                {#                    {% url '' notice.comment.user.id %}#}
+                                {{ notice.sender.username }}
+                            </a>
+                            在
+                            <a href="{% url 'book_detail' notice.comment.book.id %}">{{ notice.comment.book.name }}</a>
+                            中回复了你。
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.create_date|date:"Y/m/d H:i" }}
+
+                        <a href="">
+                            <span style="margin-left: 100px">{{ notice.comment.content|limit_comment:20 }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+                {% else %}
+                <div style="margin: 100px;font-size: 23px">暂无更多消息</div>
+            {% endif %}
+
+            </ul>
+        </div>
     </div>
-</div>
 
 
 {% endblock %}

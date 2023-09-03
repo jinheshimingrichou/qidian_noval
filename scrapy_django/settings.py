@@ -72,6 +72,10 @@ TEMPLATES = [
                 'django.template.context_processors.media'
 
             ],
+            'libraries':{
+                'book_info':'web.templatetags.book_info',
+                'notice_tag':'web.templatetags.notice_tag'
+            }
         },
     },
 ]
@@ -125,7 +129,9 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'web/media/')
 
-CKEDITOR_UPLOAD_PATH = 'ckeditor_upload'
+CKEDITOR_UPLOAD_PATH = 'ckeditor_upload/'
+CKEDITOR_JQUERY_URL = 'js/jquery.min.js'
+CKEDITOR_IMAGE_BACKEND = 'pillow'  # 图像库支持需要安装 PIL
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -134,10 +140,36 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_CONFIGS = {
     # （1）默认配置
     'default': {
-        'toolbar': 'full',  # 工具条功能
-        'height': 600,  # 编辑器高度
-        'width': "auto",  # 编辑器宽
+        # 编辑器宽度自适应
+        'width':'auto',
+        'height':'200px',
+        # tab键转换空格数
+        'tabSpaces': 4,
+        # 工具栏风格
+        'toolbar': 'Custom',
+        # 工具栏按钮
+        'toolbar_Custom': [
+            # 预览、表情
+            ['Preview','Smiley'],
+            # 字体风格
+            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            # 字体颜色
+            ['TextColor', 'BGColor'],
+            #格式、字体、大小
+            ['Format','Font','FontSize'],
+            # 链接
+            ['Link', 'Unlink'],
+            # 列表
+            ['Image', 'NumberedList', 'BulletedList'],
+            #居左，居中，居右
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            # 最大化
+            ['Maximize']
+        ],
+        # 加入代码块插件
+        'extraPlugins': ','.join(['codesnippet','image2','filebrowser','widget', 'lineutils']),
     },
+
 }
 
 WHITE_REGEX_URL_LIST = [

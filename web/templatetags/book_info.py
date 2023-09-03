@@ -86,3 +86,13 @@ def person_nav(request):
         if request.path_info.startswith(item['url']):
             item['class'] = 'active'
     return {'data_list': data_list}
+
+
+@register.filter(name='limit_comment') # 自定义过滤器
+def limit_comment(x,y): # 接受两个值
+    pattern = re.compile(r'<[^>]+>', re.S)
+    x = pattern.sub('', x).replace("&nbsp;", "")
+    if len(x)>y:
+        return x[:y]+'...'
+    else:
+        return x

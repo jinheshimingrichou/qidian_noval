@@ -1,0 +1,59 @@
+{% extends 'layout/personbase.html' %}
+{% load static %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/firstpage.css' %}">
+    <style>
+        .length {
+            width: 450px;
+        }
+
+        .dis {
+            display: flex;
+        }
+        .height{
+
+            height: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% load book_info %}
+    <div class="container">
+        <div class="row mt-4 ml-4">
+            我的帖子
+        </div>
+        <!-- 未读通知列表 -->
+        <div class="row mt-2 ml-4 ">
+            <ul class="list-group">
+            {% if comments %}
+            {% for comment in comments %}
+                    <li class="list-group-item dis" id="notice_link">
+
+                        <div class="length">
+                        <span style="margin: 5px;color: #1ecfa7">{{ comment.book.name }}</span>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.created|date:"Y/m/d H:i" }}
+                        <span style="margin-left: 100px">{{ comment.content|limit_comment:20 }}</span>
+
+                    </li>
+                {% endfor %}
+                {% else %}
+                <div style="margin: 100px;font-size: 23px">暂无评论</div>
+            {% endif %}
+
+            </ul>
+        </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+
+    </script>
+
+
+
+{% endblock %}

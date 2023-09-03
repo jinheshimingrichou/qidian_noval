@@ -112,22 +112,22 @@
     </div>
     <hr>
     <hr>
-    <a href="{% url 'comment' book.id %}">pinglunqu</a>
+    <a href="{% url 'comment' book.id %}"></a>
     <!-- 发表评论 -->
     <form method="POST" action="{% url 'comment' book.id %}">
         {% csrf_token %}
         <div class="form-group">
             <label for="content">
-                <strong>
-                    我也要发言：
+                <strong style="margin-left: 650px">
+                    我的评论
                 </strong>
             </label>
-            <div style="margin-left: 250px">
+            <div style="margin-left: 200px;height: 300px;width: 1100px">
                 {{ comment_form.media }}
                 {{ comment_form.content }}
             </div>
         </div>
-        <button type="submit" class="btn btn-primary ">发送</button>
+        <button type="submit" class="btn btn-primary " style="margin-left: 1200px">发送</button>
     </form>
 
     <!-- 显示评论 -->
@@ -147,6 +147,7 @@
                     >
                         <hr>
                         <p>
+
                             <strong style="color: #7aefac">
                                 {{ comment.user.username }}
                             </strong>
@@ -189,7 +190,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content" style="height: 480px">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle" style="margin-left: 300px">
                                             回复 {{ comment.user.username }}：</h5>
                                     </div>
                                     <div class="modal-body" id="modal_body_{{ comment.id }}">
@@ -261,15 +262,7 @@ $.ajaxSetup({
                     dataType: "JSON", // 将服务端返回的数据反序列化为字典
                     success: function (res) {console.log(res)
                         // ajax请求发送成功之后，自动执行的函数； res就是后端返回的值
-                        if (res.status) {
 
-                        } else {
-                            // 错误信息
-                            // console.log(res); // {status:False, error:{ mobile_phone: ["错误信息"，],code: ["错误信息"，] }  }
-                            $.each(res.error, function (key, value) {
-                                $("#id_" + key).next().text(value[0]);
-                            })
-                        }
                     }
                 })
                 location.reload();
@@ -284,11 +277,12 @@ $.ajaxSetup({
             // 加载编辑器
             if ($(modal_body).children().length === 0) {
 
-                let content = '<iframe src="http://127.0.0.1:8000/reply/' +
+                let content = '<iframe   src="http://127.0.0.1:8000/reply/' +
                     book_id +
                     '/' +
-                    comment_id +'/'+
-                    '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
+                    comment_id
+                    +'/'+
+                    '"  style="width: 100%; height: 360px;"></iframe>';
                 {#let content = '<iframe src="http://127.0.0.1:8000/{% url 'reply' %}/" frameborder="0" style="width: 100%; height: 100%;"></iframe>';#}
                 console.log(content)
                 $(modal_body).append(content);
@@ -306,9 +300,10 @@ $.ajaxSetup({
             // 去除 url 尾部 '/' 符号
             next_url = next_url.charAt(next_url.length - 1) == '/' ? next_url.slice(0, -1) : next_url;
             // 刷新并定位到锚点
-            location.reload();
+            {#location.reload();#}
 
             window.location.replace(next_url + "#comment_elem_" + new_comment_id);
+            location.reload();
         }
 
     </script>

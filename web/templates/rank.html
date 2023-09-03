@@ -109,7 +109,44 @@
 
             </ul>
         </div>
+{% if books %}
+   {# 分页链接 #}
+   {% if is_paginated %}
+     <ul class="pagination">
+    {% if books.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
 
+    {% for i in books.paginator.page_range %}
+        {% if books.number == i %}
+             {% if i|add:-2 > 0 %}
+            <li class="page-item"><a class="page-link" href="?page={{ i|add:-2 }}">{{ i|add:-2  }}</a></li>
+                 {% endif %}
+            {% if i|add:-1 > 0 %}
+            <li class="page-item"><a class="page-link" href="?page={{ i|add:-1  }}">{{ i|add:-1  }}</a></li>
+            {% endif %}
+
+      <li class="page-item active"><span class="page-link"> {{ i }} <span class="sr-only">(current)</span></span></li>
+      {% if i|add:1 == books.next_page_number %}
+         <li class="page-item"><a class="page-link" href="?page={{ i|add:1  }}">{{ i|add:1  }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+      {% if books.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ books.next_page_number }}">Next</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+    </ul>
+    {% endif %}
+
+{% else %}
+    暂无更多内容
+{# 注释: 这里可以写自己的句子 #}
+{% endif %}
     </div>
 </div>
 

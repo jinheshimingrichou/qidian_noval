@@ -64,10 +64,10 @@ re_path(r'^personal/firstpage/$',personal.FirstPage,name='firstpage'),
 # re_path(r'^personal/bookshelf/$',personal.BookShelf,name='bookshelf'),
 re_path(r'^personal/bookshelf/$',personal.BookShelf.as_view(),name='bookshelf'),
 
-
+re_path(r'^personal/mybookcomm/$',comment.my_book_comm,name='mybookcomm'),
 
 
 re_path(r'^setting/(?P<id>\d+)$',personal.Settings.as_view(),name='setting'),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

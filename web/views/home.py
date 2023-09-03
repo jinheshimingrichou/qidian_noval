@@ -8,6 +8,26 @@ from django.db.models import Q,F
 import uuid
 import datetime
 import json
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+def paginators(request,books):
+    paginator = Paginator(books, 6)
+    # 获取 url 中的页码
+    page = request.GET.get('page')
+    # 将导航对象相应的页码内容返回给 articles
+
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)  # 如果传入page参数不是整数，默认第一页
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False  # 如果页数小于1不使用分页
+    context={
+        "books": books
+    , 'is_paginated': is_paginated
+    }
+    return context
 def Lookbook(request):
     print('aaaaaaaaaaaaaaaaaaaaaaaaaa',request.user)
 
@@ -17,8 +37,9 @@ def Lookbook(request):
     # print(bb.name,bb.books_set.all().first().name)
     # print(cc.author.name)
     # Authors.objects.all().update(book_total=F('book_total')+10)
-
-    return render(request,'index.html', {"books":books,'type':' '})
+    # 每页显示 1 篇文章
+    context=paginators(request,books)
+    return render(request,'index.html', context)
 
 # def index(request):
 #
@@ -43,46 +64,56 @@ def Type(req,type):
     if type==' ':
         return redirect('index')
     books=Books.objects.all().filter(type=type)
-    return render(req,'index.html',{'books':books})
+    context=paginators(req,books)
+    return render(req,'index.html',context)
 def Category(req,category):
     books=Books.objects.all().filter(category=category)
-    return render(req,'index.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'index.html',context)
 
 def State(req,state):
     books=Books.objects.all().filter(state=state)
-    return render(req,'index.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'index.html',context)
 
 def Collection(req):
     CCC=Collections.objects.order_by('-coll_num')
+
     return render(req,'index.html',{'CCC':CCC})
 
 def Popularity(req):
     books=Books.objects.order_by('-recommend')
-    return render(req,'index.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'index.html',context)
 
 def Word(req):
     books=Books.objects.order_by('-word')
-    return render(req,'index.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'index.html',context)
 
 from django.core import serializers
 #500500500500,500
 def Rank_tuijian(req):
 
     books = Books.objects.order_by('-recommend')[:10]
-    return render(req, 'rank.html', {'books': books})
+    context = paginators(req, books)
+    return render(req, 'rank.html', context)
 def Rank_yuepiao(req):
     books = Books.objects.order_by('-word')
-    return render(req, 'rank.html', {'books': books})
+    context = paginators(req, books)
+    return render(req, 'rank.html', context)
 def Rank_vipcollection(req):
     temp = Collections.objects.order_by('-coll_num')
     # print(temp)
     books=Books.objects.filter(prop=2).filter(id__in=temp.values('bookname')).order_by('-id')
+    context = paginators(req, books)
     # print(books)
-    return render(req, 'rank.html', {'books': books})
+    return render(req, 'rank.html',context)
 
 def Rank(req):
    books = Books.objects.order_by('-word')
-   return render(req,'rank.html', {'books': books})
+   context = paginators(req, books)
+   return render(req,'rank.html', context)
 # def Rank(req):
 #     data=req.GET.get('rank')
 #     path=req.path_info.split('/')[-1]
@@ -114,11 +145,13 @@ def Rank(req):
 
 def End(req):
     books=Books.objects.filter(state=1)
-    return render(req,'book_list.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'book_list.html',context)
 
 def Free(req):
     books=Books.objects.filter(prop=1)
-    return render(req,'book_list.html',{'books':books})
+    context = paginators(req, books)
+    return render(req,'book_list.html',context)
 
 def Search(req):
     search=req.POST.get('search')

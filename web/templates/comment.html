@@ -10,7 +10,7 @@
 
 
 {% block content %}
-    <form method="POST" action="{% url 'comment' %}">
+    <form method="POST" action=".">
         {% csrf_token %}
         <div class="form-group">
             <label for="content">
@@ -23,7 +23,8 @@
                 {{ comment_form.content }}
             </div>
         </div>
-        <button type="submit" class="btn btn-primary ">发送</button>
+        <button type="submit" onclick="confirm_submit({{book_id }}, {{ parent_comment_id }})" class="btn btn-primary">发送</button>
+
     </form>
 
 

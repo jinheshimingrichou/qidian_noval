@@ -8,7 +8,7 @@ urlpatterns = [
     # 通知列表
 
 re_path(r'^personal/update/$', views.CommentNoticeUpdateView.as_view(), name='readed'),
-re_path(r'^personal/message/$',views.Unread,name='message'),
+re_path(r'^personal/message/$',views.Allmessages,name='message'),
 ]
 
 
