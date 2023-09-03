@@ -68,6 +68,14 @@ def Comments(request, book_id, parent_comment_id=None):
         # print(comment,comment.content,comment.book,comment.user)
 
         # 二级回复
+        # if parent_comment_id:
+        #     print(parent_comment_id)
+        #     parent_comment = Comment.objects.get(id=parent_comment_id)
+        #     # 若回复层级超过二级，则转换为二级
+        #     acomment.parent_id = parent_comment.get_root().id
+        #     # 被回复人
+        #     acomment.reply_to = parent_comment.user
+        #     acomment.save()
         if parent_comment_id:
             print(parent_comment_id)
             parent_comment = Comment.objects.get(id=parent_comment_id)

@@ -127,7 +127,7 @@ class SendEmailForm(forms.Form):
 
         # 验证码 写入redis（django-redis）
         conn = get_redis_connection()
-        conn.set(email, code, ex=60)
+        conn.set(email, code, ex=60*10)
 
         return email
 

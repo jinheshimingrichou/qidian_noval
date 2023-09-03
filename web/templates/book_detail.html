@@ -138,7 +138,7 @@
             <!-- 遍历树形结构 -->
             {% recursetree comments %}
                 {% with comment=node %}
-                    <div class="pinglunqu {% if comment.reply_to %}
+                    <div class="pinglunqu  {% if comment.reply_to %}
                                     offset-1 col-11
                                     {% else %}
                                     col-12
@@ -250,19 +250,16 @@ $.ajaxSetup({
         }
     }
 });
-        //展现显现错误提示信息
-        function bindClickBtnMybook() {
 
+        function bindClickBtnMybook() {
             $('#addMybookshelf').click(function () {
                 $.ajax({
                     url: "{% url 'bookshelf' %}", // 等价于 /send/sms/
                     type: "POST",
                     data: "id={{ book.id }}",
-
                     dataType: "JSON", // 将服务端返回的数据反序列化为字典
                     success: function (res) {console.log(res)
                         // ajax请求发送成功之后，自动执行的函数； res就是后端返回的值
-
                     }
                 })
                 location.reload();

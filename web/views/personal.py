@@ -66,10 +66,6 @@ class BookShelf(View):
 
 
 
-def Message(request):
-
-   return render(request, 'notice/message.html')
-
 
 
 class Settings(View):
