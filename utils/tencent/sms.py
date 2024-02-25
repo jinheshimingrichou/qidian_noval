@@ -16,7 +16,7 @@ def send_email_single(email, template_id, template_param_list):
     emailBox = []
     emailBox.append(email)
     try:
-        response=send_mail('终点中文网', message, '***@qq.com', emailBox, fail_silently=False)
+        response=send_mail('终点中文网', message, '1454335861@qq.com', emailBox, fail_silently=False)
     except HTTPError as e:
         response = {'result': '1000', 'errmsg': "网络异常发送失败"}
     return response

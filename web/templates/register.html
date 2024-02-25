@@ -75,11 +75,11 @@
 
                 $('.error-msg').empty();
 
-                // 获取用户输入的手机号
-                // 找到输入框的ID，根据ID获取值，如何找到手机号的那个ID？
+                // 获取用户输入的email
+                // 找到输入框的ID，根据ID获取值
                 var email = $('#id_email').val();
 
-                // 发送ajax请求，把手机号发送过去
+                // 发送ajax请求，把email发送过去
                 $.ajax({
                     url: "{% url 'send_email' %}", // 等价于 /send/sms/
                     type: "GET",

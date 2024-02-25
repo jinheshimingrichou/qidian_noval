@@ -64,6 +64,7 @@ class ThebookSpider(scrapy.Spider):
 
 
 
+
     def parse_author(self, response, **kwargs):
         name = response.xpath("//div[@class='header-msg']/h1/text()").extract_first()
         icon = response.xpath("//div[@class='header-avatar']/img/@src").extract_first()
